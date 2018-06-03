@@ -1,3 +1,8 @@
+Kiwi weekend in the cloud task! I learned about this weekend just after the dealine, but decided 
+to solve it anyways. It sounds interesting and is aimed at exactly what I wanted to learn!
+
+=======================================================================================
+
 As your entry task, we'd like you to provide us with a built and working 
 Docker image.
 You can share your code with us via repo. BONUS: multiple logical 
@@ -12,3 +17,88 @@ Weekend in the Cloud"
   - Hint: use Let's Encrypt
   - https://letsencrypt.org/docs/certificates-for-localhost/
 - Use Docker Hub to build and share your image
+
+========================================================================================
+
+DOCKER
+
+How to install docker:
+run: sudo pacman -S docker
+
+How to create a container:
+- make a Dockerfile (looks a bit like Vagrantfile) - in the same directory where I want the
+container
+
+Dockerfile:
+- FROM: I'm using nginx:alpine, it felt more appropriate when using nginx 
+-  chown mean change owner, -R flag means recursively:
+cmd: chown name -R /some/path means, that the operation will be performed for all files and
+directories(and all files and directories within directory). So it will change the file owner to
+name for all files and directories in /some/path
+- COPY: where the copy is in Dockerfile is very important. If it's in the beginning, docker will
+rebuild that and following layers. Thus, when coding, it's better to have COPY just nefore
+ownership change. Run can be split into more. When Dockerfile changes, build will rebuild all the
+layers from that point on.
+
+run: sudo systemctl enable docker
+run: sudo systemctl start docker
+
+run: docker build -t [username]/[container name]
+         ------------------------------------
+example: | docker build -t lenkaseg/kiwi .  |
+         ------------------------------------ 
+Note: that dot there in the end is very important
+
+run: sudo usermod -aG docker lenka
+--------------------------------------
+|run: sudo docker run lenkaseg/kiwi  |
+--------------------------------------
+After every change build and run docker again.
+
+docker ps = listing all the containers
+
+THIS IS VERY IMPORTANT:
+cmd: docker inspect 799a1d21208b | grep 172
+inspect = searches through the container of this ID
+piping = "|" = grabs the result and prints it
+grep = prints just the lines which contain 172
+
+sudo docker inspect 799a1d21208b | less = opens a file with configuration
+
+TO USE ALL THIS COMMANDS THE DOCKER HAS TO BE RUNNING (SUDO DOCKER RUN + PATH)
+
+man Dockerfile = show dockerfile manual
+
+IP ADRESS/PORT
+sudo docker run -p 5000 lenkaseg/kiwi
+jmb 
+write to Dockerfile: EXPOSE 5000
+
+I'm telling docker, that port 5000 is the port 5000 I want it to run the stuff on:
+sudo docker run -p 5000:5000 lenkaseg/kiwi
+
+to see alll the docker images:
+run: docker images -a
+
+How to structure work into containers:
+- every functionality should have its own container (like login, forum, ... - like a complete
+element with its static and templates). Then a Docker Compose (or Kubernetes) runs it all
+together, and when some of the containers needs to be put down, it doesn't affect the rest of the
+app.
+
+===============================================================================================
+
+NGINX
+
+- put the site.html where nginx expects them to be and change the entrypoint in the dockerfile
+and  build and run the docker
+	and this is exactly the how it is done:
+COPY site.html /usr/share/nginx/html
+copies [what] [to where]
+ 
+
+Tasks:
+- push to github
+- push to docker hub
+- figure out nginx
+- permisson about the nginx access
