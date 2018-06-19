@@ -95,10 +95,58 @@ and  build and run the docker
 	and this is exactly the how it is done:
 COPY site.html /usr/share/nginx/html
 copies [what] [to where]
- 
 
-Tasks:
-- push to github
-- push to docker hub
-- figure out nginx
-- permisson about the nginx access
+==============================================================================================
+
+SSL
+I followed the link in the task: https://letsencrypt.org/docs/certificates-for-localhost/
+I ran these commands:
+-From the link mentioned above:
+openssl req -x509 -out localhost.crt -keyout localhost.key \
+  -newkey rsa:2048 -nodes -sha256 \
+  -subj '/CN=localhost' -extensions EXT -config <( \
+   printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = 
+dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+
+- to mount the path from the host to the container, to point out where the certificates are, 
+using this -v which stands for volume:
+sudo docker run -p 5000:5000 -v /home/lenka/Documents/code/kiwi/certs:/etc/nginx/certs 
+lenkaseg/kiwi
+
+It was not running well in Chrome, but in Firefox yes.
+
+=============================================================================================
+
+some more magic
+
+- to clean up a bit all the mess of docker images I made along the process:
+sudo docker ps --all
+sudo docker inspect [container id]
+sudo docker start [container id] = in case I killed or stopped some container and I want to run 
+exactly the same. If I would use run, it would create another container.
+sudo docker stop [container id] = or kill. Just stops the container.
+
+- some command line magic for removing all the old containers (because they take space), called piping
+sudo docker ps --all = lists all the containers
+sudo docker ps --all | cut -f1 -d' ' = cut all the columns except the one I need. -d means 
+delimiter = the separator
+sudo docker ps --all | cut -f1 -d' ' | grep -v CONTAINER = keep all the lines except of that one 
+mentioned "CONTAINER"
+sudo docker ps --all | cut -f1 -d' ' | grep -v CONTAINER | xargs sudo docker rm = xargs converts 
+column into row and passes it to the following command - which removes them all
+
+- to run the container with this volume settings and naming it kiwi:
+sudo docker run -p 5000:5000 -v /home/lenka/Documents/code/kiwi/certs:/etc/nginx/certs --name kiwi lenkaseg/kiwi
+= and then I don't use run if I don't change it, only start and stop = I'm running the same 
+container, not creating a new one every time
+
+And every time I change something in Dockerfile or other related files, I have to build another image. 
+On top of this image, as it's instance, I can run containers.
+To see the docker images:
+sudo docker images
+
+When I have a tested image, I can name it, to have it easier later to return to it:
+sudo docker tag lenkaseg/kiwi:latest lenkaseg/kiwi:rememberme
+or
+sudo docker tag 26a7e99c9842 lenkaseg/kiwi:latest
+

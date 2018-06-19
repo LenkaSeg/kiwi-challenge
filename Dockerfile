@@ -17,5 +17,7 @@ RUN chown kiwi -R /kiwi
 
 EXPOSE 5000
 
+VOLUME /etc/nginx/certs
+
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
