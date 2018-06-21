@@ -1,4 +1,4 @@
-#Kiwi weekend in the cloud task! 
+# Kiwi weekend in the cloud task! 
 
 I learned about this weekend just after the deadline, but decided 
 to solve it anyways. It sounds interesting and is aimed at exactly what I wanted to learn! It 
@@ -6,7 +6,7 @@ took me exactly one month and one week of time and I learned all this and much m
 people from codebar.io/barcelona. Thanks to all!
 
 ==================================================================
-##Run:
+## Run:
 
     ./gen_cert.sh 
 to generate certificate and key.
@@ -25,7 +25,7 @@ to run a docker container
 
 ==================================================================
 
-#TASK:
+# TASK:
 
 As your entry task, we'd like you to provide us with a built and working 
 Docker image.
@@ -44,7 +44,7 @@ Weekend in the Cloud"
 
 =================================================================
 
-##DOCKER
+## DOCKER
 
 How to install docker:
 
@@ -118,7 +118,7 @@ app.
 
 ===============================================================================================
 
-#NGINX
+## NGINX
 
 - put the site.html where nginx expects them to be and change the entrypoint in the dockerfile
 and  build and run the docker
@@ -129,7 +129,7 @@ copies [what] [to where]
 
 ==============================================================================================
 
-#SSL
+## SSL
 
 I followed the link in the task: https://letsencrypt.org/docs/certificates-for-localhost/
 I ran these commands:
@@ -150,7 +150,7 @@ It was not running well in Chrome, but in Firefox yes.
 
 =============================================================================================
 
-#some more magic
+## some more magic
 
 - to clean up a bit all the mess of docker images I made along the process:
 
@@ -199,7 +199,7 @@ or
 
 ================================================================================================
 
-PERMISSIONS
+# PERMISSIONS
 
     ls -l 
 = exposes the permissions for listed files = Read, Write, eXecute
