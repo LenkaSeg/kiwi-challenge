@@ -118,7 +118,7 @@ element with its static and templates). Then a Docker Compose (or Kubernetes) ru
 together, and when some of the containers needs to be put down, it doesn't affect the rest of the
 app.
 
-==============================================================================
+============================================================
 
 ## NGINX
 
@@ -129,7 +129,7 @@ and  build and run the docker
     COPY site.html /usr/share/nginx/html
 copies [what] [to where]
 
-==============================================================================
+=============================================================
 
 ## SSL
 
@@ -150,11 +150,11 @@ using this -v which stands for volume:
 
 It was not running well in Chrome, but in Firefox yes.
 
-===========================================================================
+=============================================================
 
 ## some more magic
 
-- to clean up a bit all the mess of docker images I made along the process:
+To clean up a bit all the mess of docker images I made along the process:
 
     sudo docker ps --all
     
@@ -167,7 +167,7 @@ If I would use run, it would create another container.
     sudo docker stop [container id] 
 = or kill. Just stops the container.
 
-- some command line magic for removing all the old containers (because they take space), called piping
+Some command line magic for removing all the old containers (because they take space), called piping
 
     sudo docker ps --all
 = lists all the containers
@@ -182,7 +182,7 @@ delimiter = the separator
     sudo docker ps --all | cut -f1 -d' ' | grep -v CONTAINER | xargs sudo docker rm 
 = xargs converts column into row and passes it to the following command - which removes them all
 
-- to run the container with this volume settings and naming it kiwi:
+To run the container with this volume settings and naming it kiwi:
 
     sudo docker run -p 5000:5000 -v /home/lenka/Documents/code/kiwi/certs:/etc/nginx/certs --name \
     kiwi lenkaseg/kiwi
@@ -202,7 +202,7 @@ or
 
     sudo docker tag 26a7e99c9842 lenkaseg/kiwi:latest
 
-==============================================================================
+=========================================================
 
 # PERMISSIONS
 
