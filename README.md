@@ -67,6 +67,7 @@ ownership change. Run can be split into more. When Dockerfile changes, build wil
 layers from that point on.
 
     sudo systemctl enable docker
+    
     sudo systemctl start docker
 
     docker build -t [username]/[container name]
@@ -78,6 +79,7 @@ example:
 *Note: that dot there in the end is very important
 
     sudo usermod -aG docker lenka
+    
     sudo docker run lenkaseg/kiwi
     
 After every change build and run docker again.
@@ -116,7 +118,7 @@ element with its static and templates). Then a Docker Compose (or Kubernetes) ru
 together, and when some of the containers needs to be put down, it doesn't affect the rest of the
 app.
 
-===============================================================================================
+==============================================================================
 
 ## NGINX
 
@@ -127,7 +129,7 @@ and  build and run the docker
     COPY site.html /usr/share/nginx/html
 copies [what] [to where]
 
-==============================================================================================
+==============================================================================
 
 ## SSL
 
@@ -148,17 +150,20 @@ using this -v which stands for volume:
 
 It was not running well in Chrome, but in Firefox yes.
 
-=============================================================================================
+===========================================================================
 
 ## some more magic
 
 - to clean up a bit all the mess of docker images I made along the process:
 
     sudo docker ps --all
+    
     sudo docker inspect [container id]
+    
     sudo docker start [container id] 
 = in case I killed or stopped some container and I want to run exactly the same. 
 If I would use run, it would create another container.
+
     sudo docker stop [container id] 
 = or kill. Just stops the container.
 
@@ -197,7 +202,7 @@ or
 
     sudo docker tag 26a7e99c9842 lenkaseg/kiwi:latest
 
-================================================================================================
+==============================================================================
 
 # PERMISSIONS
 
